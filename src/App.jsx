@@ -41,17 +41,8 @@ import {
   AlertCircle,
 } from "lucide-react";
 
-// ============================================================================
-// CONFIGURABLE DEMO WHATSAPP NUMBER (Update before client/demo handover)
-// Format: country code + number without "+" or spaces (e.g. "60123456789")
-// ============================================================================
 const DEMO_WHATSAPP_NUMBER = "60123456789";
 
-// ============================================================================
-// REAL-WORLD MOUNTAIN SCENERY & LUXURY RETREAT PHOTOGRAPHY (Unsplash / Pexels)
-// Inspired by New Zealand (Tekapo/Pukaki/Southern Alps), Switzerland (Lauterbrunnen/
-// Grindelwald/Zermatt), and Norway (Lofoten/Fjords). Fictional location: Aurelia Ridge.
-// ============================================================================
 const PHOTOS = {
   heroAlpine:
     "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=2000&q=85",
@@ -59,40 +50,30 @@ const PHOTOS = {
     "https://images.unsplash.com/photo-1518780664697-55e3ad937233?auto=format&fit=crop&w=1600&q=85",
   aboutValley:
     "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1600&q=85",
-
-  // Room 01 — Mountain View Deluxe Room
   deluxeMain:
     "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=1600&q=85",
   deluxeView:
     "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1600&q=85",
   deluxeBath:
     "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1600&q=85",
-
-  // Room 02 — Forest Family Suite
   familyMain:
     "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1600&q=85",
   familyForest:
     "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1600&q=85",
   familyLounge:
     "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1600&q=85",
-
-  // Room 03 — Alpine Luxury Cabin
   cabinMain:
     "https://images.unsplash.com/photo-1542718610-a1d656d1884c?auto=format&fit=crop&w=1600&q=85",
   cabinFireplace:
     "https://images.unsplash.com/photo-1510798831971-661eb04b3739?auto=format&fit=crop&w=1600&q=85",
   cabinDeck:
     "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1600&q=85",
-
-  // Room 04 — Lakeside Premium Villa
   villaMain:
     "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1600&q=85",
   villaLake:
     "https://images.unsplash.com/photo-1439066615861-d1af74d74000?auto=format&fit=crop&w=1600&q=85",
   villaInterior:
     "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1600&q=85",
-
-  // Facilities & Experiences
   poolAlpine:
     "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1600&q=85",
   sunrisePeak:
@@ -111,9 +92,6 @@ const PHOTOS = {
     "https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?auto=format&fit=crop&w=1600&q=85",
 };
 
-// ============================================================================
-// ROOMS & SUITES DATA (4 Distinct Categories)
-// ============================================================================
 const ROOMS_DATA = [
   {
     id: "mountain-view-deluxe",
@@ -249,9 +227,6 @@ const ROOMS_DATA = [
   },
 ];
 
-// ============================================================================
-// FACILITIES & AMENITIES (10 Items)
-// ============================================================================
 const FACILITIES_DATA = [
   {
     title: "Free Wi-Fi",
@@ -305,9 +280,6 @@ const FACILITIES_DATA = [
   },
 ];
 
-// ============================================================================
-// EXPERIENCES & ACTIVITIES (7 Items)
-// ============================================================================
 const EXPERIENCES_DATA = [
   {
     title: "Sunrise Mountain View",
@@ -367,9 +339,6 @@ const EXPERIENCES_DATA = [
   },
 ];
 
-// ============================================================================
-// PHOTO GALLERY (7 Categories)
-// ============================================================================
 const GALLERY_CATEGORIES = [
   "All",
   "Exterior Architecture",
@@ -468,9 +437,6 @@ const GALLERY_ITEMS = [
   },
 ];
 
-// ============================================================================
-// TESTIMONIALS (4 Fictional Demo Guest Reviews)
-// ============================================================================
 const TESTIMONIALS_DATA = [
   {
     name: "Hannah Lindqvist",
@@ -502,9 +468,6 @@ const TESTIMONIALS_DATA = [
   },
 ];
 
-// ============================================================================
-// HELPER FUNCTIONS
-// ============================================================================
 function getTodayISO() {
   const d = new Date();
   d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
@@ -551,4 +514,64 @@ function buildWhatsAppMessage({
     "BOOKING DETAILS",
     "",
     `Guest Name: ${fullName || "-"}`,
-    `Phone Number: $
+    `Phone Number: ${phone || "-"}`,
+    `Email: ${email || "-"}`,
+    "",
+    `Room: ${roomName || "-"}`,
+    `Check-in: ${checkIn || "-"}`,
+    `Check-out: ${checkOut || "-"}`,
+    `Duration: ${nights} ${nights === 1 ? "night" : "nights"}`,
+    "",
+    `Adults: ${adults}`,
+    `Children: ${children}`,
+    "",
+    `Price Per Night: ${formatCurrency(pricePerNight)}`,
+    `Estimated Total: ${formatCurrency(estimatedTotal)}`,
+    "",
+    `Special Requests: ${
+      specialRequests && specialRequests.trim() ? specialRequests.trim() : "None"
+    }`,
+    "",
+    "Please confirm room availability and reservation details.",
+    "",
+    "Thank you!",
+  ].join("\n");
+}
+
+export default function App() {
+  const [previewMode, setPreviewMode] = useState("responsive");
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const [searchCheckIn, setSearchCheckIn] = useState(() => getOffsetDateISO(1));
+  const [searchCheckOut, setSearchCheckOut] = useState(() => getOffsetDateISO(3));
+  const [searchAdults, setSearchAdults] = useState(2);
+  const [searchChildren, setSearchChildren] = useState(0);
+  const [searchBanner, setSearchBanner] = useState("");
+
+  const [activeRoom, setActiveRoom] = useState(null);
+  const [roomPhotoIndex, setRoomPhotoIndex] = useState(0);
+
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [lightboxIndex, setLightboxIndex] = useState(null);
+
+  const [bookingOpen, setBookingOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    fullName: "",
+    phone: "",
+    email: "",
+    roomId: ROOMS_DATA[0].id,
+    checkIn: getOffsetDateISO(1),
+    checkOut: getOffsetDateISO(3),
+    adults: 2,
+    children: 0,
+    specialRequests: "",
+  });
+  const [formErrors, setFormErrors] = useState({});
+  const [bookingReadyMessage, setBookingReadyMessage] = useState("");
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, 
